@@ -1,0 +1,865 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{SimulationAssignment1Appendix}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+\end{Verbatim}
+
+
+    \textbf{\emph{Function definitions}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}A function which instantiates an LCG and creates U(0,1) random variables}
+        \PY{c+c1}{\PYZsh{}Inputs:}
+        \PY{c+c1}{\PYZsh{}n \PYZhy{} number of RVs to create}
+        \PY{c+c1}{\PYZsh{}z0 \PYZhy{} seed}
+        \PY{c+c1}{\PYZsh{}m\PYZhy{} modulus}
+        \PY{c+c1}{\PYZsh{}a\PYZhy{}multiplier}
+        \PY{c+c1}{\PYZsh{}c\PYZhy{}constant additive term}
+        \PY{c+c1}{\PYZsh{}Outputs:}
+        \PY{c+c1}{\PYZsh{}array of n rows containing (U,z)}
+        
+        \PY{k}{def} \PY{n+nf}{LCG}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{:}
+            \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}
+            \PY{n}{u}\PY{o}{=}\PY{l+m+mi}{0}
+            \PY{n}{out}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{z}\PY{o}{=}\PY{n}{z0}
+            \PY{k}{while} \PY{n}{i}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{n}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{z}\PY{o}{=}\PY{p}{(}\PY{n}{a}\PY{o}{*}\PY{n}{z}\PY{o}{+}\PY{n}{c}\PY{p}{)}\PY{o}{\PYZpc{}}\PY{k}{m}
+                \PY{n}{out}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{p}{[}\PY{n}{z}\PY{o}{/}\PY{n}{m}\PY{p}{,}\PY{n}{z}\PY{p}{]}
+                \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{out}
+                
+                
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Generate an ECDF from data}
+        \PY{c+c1}{\PYZsh{}Input: data array}
+        \PY{c+c1}{\PYZsh{}Output: ECDF array}
+        \PY{k}{def} \PY{n+nf}{generateECDF}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dataSort}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+            \PY{n}{n}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+            \PY{n}{ECDF}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dataSort}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{n}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{ECDF}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{x}
+                \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{k}{return} \PY{n}{ECDF}
+                
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Runs a 2 dimensional serial test, dividing the unit square into k bins}
+        \PY{c+c1}{\PYZsh{}Input:}
+        \PY{c+c1}{\PYZsh{}data for testing \PYZhy{} 2\PYZhy{}d array}
+        \PY{c+c1}{\PYZsh{}k \PYZhy{} the number of bins}
+        \PY{c+c1}{\PYZsh{}Output: Count of data points in each 2\PYZhy{}d bin}
+        \PY{k}{def} \PY{n+nf}{serialTestFor2D}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+            \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{2}
+            \PY{n}{BinCount}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+            \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{data}\PY{p}{:}
+                \PY{n}{BinXCounter}\PY{o}{=}\PY{l+m+mi}{0}
+                \PY{k}{while} \PY{n}{BinXCounter}\PY{o}{\PYZlt{}}\PY{n}{k}\PY{p}{:}
+                    \PY{k}{if} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{BinXCounter}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{k}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{p}{(}\PY{n}{BinXCounter}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{k}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{BinYCounter}\PY{o}{=}\PY{l+m+mi}{0}
+                        \PY{k}{while} \PY{n}{BinYCounter}\PY{o}{\PYZlt{}}\PY{n}{k}\PY{p}{:}
+                            \PY{k}{if} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{BinYCounter}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{k}\PY{p}{)} \PY{o+ow}{and} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{p}{(}\PY{n}{BinYCounter}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{k}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                                \PY{n}{BinCount}\PY{p}{[}\PY{n}{BinXCounter}\PY{p}{,} \PY{n}{BinYCounter}\PY{p}{]}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                            \PY{n}{BinYCounter}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                    \PY{n}{BinXCounter}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+            \PY{k}{return}\PY{p}{(}\PY{n}{BinCount}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Runs an autocorrelation test }
+        \PY{c+c1}{\PYZsh{}Input:}
+        \PY{c+c1}{\PYZsh{}data \PYZhy{} 1\PYZhy{}d array}
+        \PY{c+c1}{\PYZsh{}lag \PYZhy{} integer value for calculating autocorrelation}
+        \PY{c+c1}{\PYZsh{}Output:}
+        \PY{c+c1}{\PYZsh{}rho\PYZhy{} correlation coefficient}
+        \PY{c+c1}{\PYZsh{}A\PYZhy{} test\PYZhy{}statistic }
+        
+        \PY{k}{def} \PY{n+nf}{AutoCorrelationTest}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{lag}\PY{p}{)}\PY{p}{:}
+            \PY{n}{h}\PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{n}{lag}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{n}{Expectations}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{n}{h}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}
+            \PY{n}{j}\PY{o}{=}\PY{l+m+mi}{0}
+            \PY{k}{while} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{h}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{j}\PY{o}{+}\PY{n}{lag}\PY{o}{\PYZlt{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{Expectations}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{data}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{*}\PY{n}{data}\PY{p}{[}\PY{n}{j}\PY{o}{+}\PY{n}{lag}\PY{p}{]}
+                    \PY{n}{j}\PY{o}{+}\PY{o}{=}\PY{n}{lag}
+                    \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{break}
+            \PY{n}{rho}\PY{o}{=}\PY{l+m+mi}{12}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{Expectations}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{h}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}
+            \PY{n}{A}\PY{o}{=}\PY{n}{rho}\PY{o}{/}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{13}\PY{o}{*}\PY{n}{h}\PY{o}{+}\PY{l+m+mi}{7}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{h}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{rho}\PY{p}{,} \PY{n}{A}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}Inverse function for Weibull CDF}
+        \PY{c+c1}{\PYZsh{}Input:}
+        \PY{c+c1}{\PYZsh{}U \PYZhy{} float between (0,1)}
+        \PY{c+c1}{\PYZsh{}alpha, beta, parameters for Weibull}
+        \PY{c+c1}{\PYZsh{}Output}
+        \PY{c+c1}{\PYZsh{}x \PYZhy{} Weibull distributed random variable}
+        \PY{k}{def} \PY{n+nf}{WeibullRVGenerator}\PY{p}{(}\PY{n}{U}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{beta}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x}\PY{o}{=}\PY{n}{alpha}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{U}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{beta}\PY{p}{)}
+            \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}Modified inverse function for Weibull variable with p=0.2 used for question 4 }
+        \PY{c+c1}{\PYZsh{}Input:}
+        \PY{c+c1}{\PYZsh{}U \PYZhy{} float between (0,1)}
+        \PY{c+c1}{\PYZsh{}alpha, beta, parameters for Weibull}
+        \PY{c+c1}{\PYZsh{}Output}
+        \PY{c+c1}{\PYZsh{}x \PYZhy{} random variable from modified distribution}
+        \PY{k}{def} \PY{n+nf}{WeibullRVGeneratorMod}\PY{p}{(}\PY{n}{U}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{beta}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x}\PY{o}{=}\PY{n}{alpha}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{U}\PY{p}{)}\PY{o}{/}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{beta}\PY{p}{)}
+            \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Random number generator on a specified interval}
+        \PY{c+c1}{\PYZsh{}Input}
+        \PY{c+c1}{\PYZsh{}U \PYZhy{} a float betweek (0,1)}
+        \PY{c+c1}{\PYZsh{}a,b \PYZhy{} bounds of interval}
+        \PY{c+c1}{\PYZsh{}Output:}
+        \PY{c+c1}{\PYZsh{} x \PYZhy{} uniform RV on (a,b)  }
+        \PY{k}{def} \PY{n+nf}{UniformAB}\PY{p}{(}\PY{n}{U}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x}\PY{o}{=}\PY{p}{(}\PY{n}{b}\PY{o}{\PYZhy{}}\PY{n}{a}\PY{p}{)}\PY{o}{*}\PY{n}{U}\PY{o}{+}\PY{n}{a}
+            \PY{k}{return} \PY{n}{x}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{Question 1}
+
+\textbf{KS test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Create n=25 U(0,1) random variables and sort in ascending order}
+         
+         \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{25}
+         \PY{n}{z0}\PY{o}{=}\PY{l+m+mi}{568}
+         \PY{n}{m}\PY{o}{=}\PY{l+m+mi}{4096}
+         \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{3649}
+         \PY{n}{c}\PY{o}{=}\PY{l+m+mi}{1581}
+         \PY{n}{LCGData}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The  LCG generated data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{LCGData}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{LCGDataSort}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{LCGData}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{LCGDataSort}\PY{o}{=}\PY{n}{LCGDataSort}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'The  LCG generated data:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([0.3997, 0.7388, 0.156 , 0.6514, 0.2249, 0.8765, 0.6062, 0.4141,
+       0.3   , 0.2642, 0.3064, 0.4268, 0.6252, 0.9019, 0.2566, 0.6895,
+       0.2004, 0.7896, 0.4568, 0.2021, 0.0256, 0.9272, 0.907 , 0.9648,
+       0.1008])
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Generate an ECDF for the data}
+         \PY{n}{ECDFData}\PY{o}{=}\PY{n}{generateECDF}\PY{p}{(}\PY{n}{LCGData}\PY{p}{)}
+         \PY{n}{ECDFData}\PY{o}{=}\PY{n}{ECDFData}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}Run a KS test}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Compute the distance variables of |Fn(x)\PYZhy{}F(x)|}
+         \PY{n}{DPlus}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{ECDFData}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{LCGDataSort}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{DMinus}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{LCGDataSort}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{i}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{DMinus}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{LCGDataSort}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{DMinus}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{ECDFData}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{LCGDataSort}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{}Absolute value for magnitude of distance}
+                 
+         \PY{n}{DMinus}\PY{o}{=}\PY{n}{DMinus}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Combine D+, D\PYZhy{} into an array}
+         \PY{n}{D}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{DPlus}\PY{p}{,} \PY{n}{DMinus}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Find maximum of D}
+         \PY{n}{DMax}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D=}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{DMax}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Compute test statistic from DMax}
+         \PY{n}{KSStat}\PY{o}{=}\PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.12}\PY{o}{+}\PY{l+m+mf}{0.11}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{n}{DMax}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KS test statistic=}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{KSStat}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'D=0.10321289062500005'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'KS test statistic=0.53'
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{stats}\PY{o}{.}\PY{n}{kstest}\PY{p}{(}\PY{n}{LCGData}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} KstestResult(statistic=0.10321289062500005, pvalue=0.9527306510698654)
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Serial test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Running a serial test on 50 U(0,1 ) RVs}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Generate 50 U(0,1) RVs}
+         \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{50}
+         \PY{n}{LCGData50}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{LCGData50}\PY{o}{=}\PY{n}{LCGData50}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Pair the data into 2\PYZhy{}d vectors}
+         \PY{n}{LCGDataPaired}\PY{o}{=}\PY{n}{LCGData50}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{3}
+         \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{2}
+         \PY{c+c1}{\PYZsh{}Running a 2\PYZhy{}d serial test with k=3}
+         \PY{n}{ObservedCounts}\PY{o}{=}\PY{n}{serialTestFor2D}\PY{p}{(}\PY{n}{LCGDataPaired}\PY{p}{,} \PY{n}{k}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Observed Counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{ObservedCounts}\PY{o}{=}\PY{n}{ObservedCounts}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{ObservedCounts}\PY{p}{)}
+         \PY{n}{ExpectedCounts}\PY{o}{=}\PY{n}{n}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{n}{d}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected Counts=}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{ExpectedCounts}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{SerialTestStat}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{ObservedCounts}\PY{o}{\PYZhy{}}\PY{n}{ExpectedCounts}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{/}\PY{n}{ExpectedCounts}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The test statistic for serial test is }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{SerialTestStat}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Get a p\PYZhy{}value using chi\PYZhy{}sq(n\PYZhy{}1) }
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability of observing a chi\PYZhy{}squared test statistic=}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{SerialTestStat}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ assuming the data came from a distribution of k\PYZca{}d\PYZhy{}1 degrees of freedom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{stats}\PY{o}{.}\PY{n}{chi2}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{SerialTestStat}\PY{p}{,} \PY{n}{k}\PY{o}{*}\PY{o}{*}\PY{n}{d}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'Observed Counts'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([[3.],
+       [3.],
+       [5.],
+       [2.],
+       [1.],
+       [4.],
+       [0.],
+       [2.],
+       [5.]])
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'Expected Counts=2.7777777777777777'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The test statistic for serial test is 8.48'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The probability of observing a chi-squared test statistic=8.48 assuming the data came from a distribution of k^d-1 degrees of freedom'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+0.39
+    \end{verbatim}
+
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Autocorrelation test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}Running an autocorrelation test on 40 U(0,1) RVs}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Generating 40 RVs}
+         \PY{n}{LCGAuto}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}Running the autocorrelation test with lag =4}
+         
+         \PY{n}{AutoTest}\PY{o}{=}\PY{n}{AutoCorrelationTest}\PY{p}{(}\PY{n}{LCGAuto}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Autocorrelation Test output:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{AutoTest}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Calculating the }
+         \PY{n}{pval}\PY{o}{=}\PY{n+nb}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{AutoTest}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability of observing the data, assuming that the null hypothesis (that there is no correlation between the data) is true: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{pval}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'Autocorrelation Test output:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([-2.3034, -1.9676])
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The probability of observing the data, assuming that the null hypothesis (that there is no correlation between the data) is true: 0.049'
+    \end{verbatim}
+
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section*{Question 2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Generating 5 Random numbers based on inversion of Weibull distribution}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}Generate 5 U(0,1) RVs}
+         \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{10000}
+         \PY{n}{LCGDataWeibull}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{z0}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Inverse Weibull of data with Weibull parameters alpha and beta}
+         \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{2}
+         \PY{n}{beta}\PY{o}{=}\PY{l+m+mi}{4}
+         
+         \PY{n}{out}\PY{o}{=}\PY{n}{WeibullRVGenerator}\PY{p}{(}\PY{n}{LCGDataWeibull}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{beta}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of x from Weibull alpha, beta = 2,4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+array([1.6904, 2.1528, 1.2835, 2.0263, 1.4208])
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} Text(0.5,1,'Histogram of x from Weibull alpha, beta = 2,4')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SimulationAssignment1Appendix_files/SimulationAssignment1Appendix_20_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section*{Question 3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{ntotal}\PY{o}{=}\PY{l+m+mi}{100000}
+         \PY{n}{z}\PY{o}{=}\PY{n}{z0}
+         \PY{n}{A}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{n}{B}\PY{o}{=}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
+         \PY{n}{K}\PY{o}{=}\PY{l+m+mi}{3}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}
+         \PY{n}{out}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{ntotal}\PY{p}{)}
+         
+         \PY{n}{f}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{o}{+}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{ntotal}\PY{p}{)}\PY{p}{:}
+             \PY{n}{accept}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{accept}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{LCGData}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+                 \PY{n}{U1}\PY{o}{=}\PY{n}{LCGData}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{z}\PY{o}{=}\PY{n}{LCGData}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{U1}\PY{o}{=}\PY{n}{UniformAB}\PY{p}{(}\PY{n}{U1}\PY{p}{,}\PY{n}{A}\PY{p}{,}\PY{n}{B}\PY{p}{)}
+                 \PY{n}{LCGData}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+                 \PY{n}{U2}\PY{o}{=}\PY{n}{LCGData}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{z}\PY{o}{=}\PY{n}{LCGData}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{U2}\PY{o}{=}\PY{n}{UniformAB}\PY{p}{(}\PY{n}{U2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{K}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{U2}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{f}\PY{p}{(}\PY{n}{U1}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{accept}\PY{o}{=}\PY{l+m+mi}{1}
+                     \PY{n}{x}\PY{o}{=}\PY{n}{U1}
+             \PY{n}{out}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{x}
+         \PY{c+c1}{\PYZsh{}f=lambda x: (1/(2*np.pi)+np.sin(x)/(4*np.pi))}
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Three non\PYZhy{}uniform RVs generated from pdf f:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'Three non-uniform RVs generated from pdf f:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([2.5111, 0.9802, 1.4128])
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} Text(0.5,1,'Histogram of x')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SimulationAssignment1Appendix_files/SimulationAssignment1Appendix_22_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section*{Question 4}
+
+    \textbf{\emph{Inversion}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{10000}
+         \PY{n}{z}\PY{o}{=}\PY{n}{z0}
+         \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{6}
+         \PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.5}
+         \PY{n}{F}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mf}{0.2}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{x}\PY{o}{/}\PY{n}{alpha}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{n}{beta}\PY{p}{)}\PY{p}{)}
+         \PY{n}{out}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Fminus}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{o}{*}\PY{n}{F}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{Fplus}\PY{o}{=}\PY{n}{Fminus}\PY{o}{+}\PY{l+m+mf}{0.8}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{LCGSample}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+             \PY{n}{U}\PY{o}{=}\PY{n}{LCGSample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{z}\PY{o}{=}\PY{n}{LCGSample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{if} \PY{n}{U}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{Fminus}\PY{p}{:}
+                 \PY{n}{X}\PY{o}{=}\PY{n}{WeibullRVGenerator}\PY{p}{(}\PY{n}{U}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{beta}\PY{p}{)}
+             \PY{k}{elif} \PY{n}{U}\PY{o}{\PYZgt{}}\PY{n}{Fminus} \PY{o+ow}{and} \PY{n}{U}\PY{o}{\PYZlt{}}\PY{n}{Fplus}\PY{p}{:}
+                 \PY{n}{X}\PY{o}{=}\PY{l+m+mi}{5}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{X}\PY{o}{=}\PY{n}{WeibullRVGeneratorMod}\PY{p}{(}\PY{n}{U}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{beta}\PY{p}{)}
+             \PY{n}{out}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{X}
+             
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 RVs generated:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of X by inversion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+           
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'5 RVs generated:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([[5.],
+       [5.],
+       [5.],
+       [5.],
+       [5.]])
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Text(0.5,1,'Histogram of X by inversion')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SimulationAssignment1Appendix_files/SimulationAssignment1Appendix_25_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section*{Question 5}
+
+\textbf{\emph{Composition}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{n}\PY{o}{=}\PY{l+m+mi}{10000}
+         \PY{n}{z}\PY{o}{=}\PY{n}{z0}
+         \PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{6}
+         \PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.5}
+         \PY{n}{out}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{LCGSample}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+             \PY{n}{U1}\PY{o}{=}\PY{n}{LCGSample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{z}\PY{o}{=}\PY{n}{LCGSample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{LCGSample}\PY{o}{=}\PY{n}{LCG}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{z}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{c}\PY{p}{)}
+             \PY{n}{U2}\PY{o}{=}\PY{n}{LCGSample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{z}\PY{o}{=}\PY{n}{LCGSample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{if} \PY{n}{U1}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{:}
+                 \PY{n}{X}\PY{o}{=}\PY{l+m+mi}{5}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{X}\PY{o}{=}\PY{n}{WeibullRVGenerator}\PY{p}{(}\PY{n}{U2}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{n}{beta}\PY{p}{)}
+             \PY{n}{out}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n}{X}
+             
+         \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 RVs generated:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{out}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{out}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of x by composition}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'5 RVs generated:'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+array([[5.],
+       [5.]])
+    \end{verbatim}
+
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} Text(0.5,1,'Histogram of x by composition')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{SimulationAssignment1Appendix_files/SimulationAssignment1Appendix_27_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
